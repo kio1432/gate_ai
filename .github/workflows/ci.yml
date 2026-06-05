@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Verify extension artifacts
+        run: |
+          test -f extension/background.js
+          test -f extension/content.js
+          test -f extension/blocked.js
+          test -f extension/popup.js
+          test -f extension/manifest.json
+          test -f extension/rules.json

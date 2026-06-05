@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 300px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 13px;
+      color: #1a1a2e;
+    }
+    h1 { font-size: 14px; margin-bottom: 12px; }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .status.ok { background: #e8f5e9; color: #2e7d32; }
+    .status.blocked { background: #fce4ec; color: #c62828; }
+    .status.unknown { background: #fff3e0; color: #e65100; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+    .meta { color: #666; font-size: 12px; line-height: 1.5; white-space: pre-line; margin-bottom: 12px; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 12px; color: #666; margin-bottom: 4px; }
+    .field select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      background: #fff;
+    }
+    button {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      background: #4a6cf7;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <h1>BlockAI</h1>
+  <div class="status unknown" id="status">
+    <span class="dot"></span>
+    <span id="label">Проверка…</span>
+  </div>
+  <p class="meta" id="meta"></p>
+  <div class="field">
+    <label for="interval">Интервал проверки</label>
+    <select id="interval">
+      <option value="1">1 секунда</option>
+      <option value="5">5 секунд</option>
+      <option value="10">10 секунд</option>
+      <option value="30">30 секунд</option>
+      <option value="60">1 минута</option>
+      <option value="300">5 минут</option>
+    </select>
+  </div>
+  <button id="retry">Проверить сейчас</button>
+  <script src="popup.js"></script>
+</body>
+</html>

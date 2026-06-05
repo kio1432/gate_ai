@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build artifacts (генерируются через npm run build)
+extension/*.js
+extension/chunks/
+extension/_metadata/
+
+# Release / signing (не коммитить)
+extension.pem
+blockai.crx
+blockai.zip
+
+# OS / editor
+.DS_Store
+*.log
+Thumbs.db
+
+# Secrets
+.env
+.env.*

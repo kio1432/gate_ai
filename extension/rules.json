@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { "type": "redirect", "redirect": { "extensionPath": "/blocked.html" } },
+    "condition": {
+      "regexFilter": "^https?://([^/]+\\.)?claude\\.ai/",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": { "type": "redirect", "redirect": { "extensionPath": "/blocked.html" } },
+    "condition": {
+      "regexFilter": "^https?://([^/]+\\.)?claude\\.com/",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": { "type": "redirect", "redirect": { "extensionPath": "/blocked.html" } },
+    "condition": {
+      "regexFilter": "^https?://([^/]+\\.)?anthropic\\.com/",
+      "resourceTypes": ["main_frame"]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "regexFilter": "^https?://([^/]+\\.)?claude\\.ai/",
+      "resourceTypes": ["xmlhttprequest", "script", "stylesheet", "image", "font", "websocket", "sub_frame", "ping", "media", "other"]
+    }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "regexFilter": "^https?://([^/]+\\.)?claude\\.com/",
+      "resourceTypes": ["xmlhttprequest", "script", "stylesheet", "image", "font", "websocket", "sub_frame", "ping", "media", "other"]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "regexFilter": "^https?://([^/]+\\.)?anthropic\\.com/",
+      "resourceTypes": ["xmlhttprequest", "script", "stylesheet", "image", "font", "websocket", "sub_frame", "ping", "media", "other"]
+    }
+  }
+]

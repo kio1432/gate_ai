@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BlockAI — проверьте VPN</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #e8e8e8;
+      padding: 24px;
+    }
+    .card {
+      max-width: 480px;
+      text-align: center;
+      padding: 48px 32px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .icon { font-size: 48px; margin-bottom: 16px; }
+    h1 { font-size: 24px; font-weight: 600; margin-bottom: 12px; }
+    p { font-size: 15px; line-height: 1.6; color: #b0b0b0; margin-bottom: 12px; }
+    .detail { font-size: 13px; color: #888; }
+    .reason { font-size: 12px; color: #666; margin-top: 8px; }
+    button {
+      margin-top: 24px;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      background: #4a6cf7;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:disabled { opacity: 0.6; cursor: wait; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon" id="icon">🔒</div>
+    <h1 id="title">Проверьте VPN</h1>
+    <p id="message">Похоже, вы забыли включить VPN. Перед началом работы убедитесь, что VPN включён и подключён к разрешённому региону.</p>
+    <p class="detail" id="region" hidden></p>
+    <p class="reason" id="reason" hidden></p>
+    <button id="retry">Проверить снова</button>
+  </div>
+  <script src="blocked.js"></script>
+</body>
+</html>
