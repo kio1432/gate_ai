@@ -10,6 +10,7 @@ extension/_metadata/
 extension.pem
 blockai.crx
 blockai.zip
+dist/
 
 # OS / editor
 .DS_Store

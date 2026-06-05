@@ -4,14 +4,16 @@ set -e
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 EXT_DIR="$ROOT/extension"
 OUT_CRX="$ROOT/blockai.crx"
-OUT_ZIP="$ROOT/blockai.zip"
+VERSION="$(node -p "require('$ROOT/extension/manifest.json').version" 2>/dev/null || echo "dev")"
+OUT_ZIP="$ROOT/dist/blockai-extension-v${VERSION}.zip"
 KEY_FILE="$ROOT/extension.pem"
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 cd "$ROOT"
 npm run build --silent
 
-# ZIP — надёжный способ установки (Chrome блокирует локальные .crx)
+# ZIP — только файлы расширения (manifest.json в корне архива)
+mkdir -p "$(dirname "$OUT_ZIP")"
 rm -f "$OUT_ZIP"
 rm -rf "$EXT_DIR/_metadata"
 (cd "$EXT_DIR" && zip -r "$OUT_ZIP" . -x "*.DS_Store" -x "_metadata/*")
@@ -29,6 +31,6 @@ echo "✔ ZIP (рекомендуется): $OUT_ZIP"
 [[ -f "$OUT_CRX" ]] && echo "✔ CRX: $OUT_CRX"
 echo ""
 echo "Установка:"
-echo "  1. Распакуйте blockai.zip"
+echo "  1. Распакуйте архив"
 echo "  2. chrome://extensions → Режим разработчика"
-echo "  3. «Загрузить распакованное» → папка extension"
+echo "  3. «Загрузить распакованное» → папка с manifest.json"

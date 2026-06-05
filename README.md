@@ -32,13 +32,19 @@ npm install   # автоматически запускает сборку (post
 2. Включите **Режим разработчика**
 3. **Загрузить распакованное** → выберите папку `extension/`
 
-### Из ZIP-архива
+### Из релиза GitHub (без сборки)
+
+1. Откройте [Releases](https://github.com/kio1432/gate_ai/releases)
+2. Скачайте **`blockai-extension.zip`** из раздела **Assets**
+3. **Не** скачивайте «Source code (zip)» — это весь репозиторий с исходниками
+4. Распакуйте и в Chrome: **Загрузить распакованное** → папка с `manifest.json`
+
+### Собрать ZIP локально
 
 ```bash
 npm run pack
+# → dist/blockai-extension-v1.0.9.zip
 ```
-
-Распакуйте `blockai.zip` и загрузите папку как распакованное расширение.
 
 > Локальный `.crx` Chrome часто отклоняет (`CRX_REQUIRED_PROOF_MISSING`). Используйте распакованную установку или ZIP.
 

@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  extension-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Pack extension only
+        run: |
+          rm -rf extension/_metadata
+          cd extension
+          zip -r ../blockai-extension.zip . -x "*.DS_Store" -x "_metadata/*"
+          unzip -l ../blockai-extension.zip
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: BlockAI ${{ github.ref_name }}
+          files: blockai-extension.zip
+          body: |
+            ## Установка
+
+            Скачайте **`blockai-extension.zip`** из раздела **Assets** ниже.
+            Не используйте «Source code» — это исходники репозитория.
+
+            1. Распакуйте `blockai-extension.zip`
+            2. Откройте `chrome://extensions` → **Режим разработчика**
+            3. **Загрузить распакованное** → выберите распакованную папку (в ней `manifest.json`)
+
+            Сборка не требуется — в архиве готовое расширение для Chrome.
