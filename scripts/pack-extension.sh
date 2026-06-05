@@ -13,7 +13,8 @@ npm run build --silent
 
 # ZIP — надёжный способ установки (Chrome блокирует локальные .crx)
 rm -f "$OUT_ZIP"
-(cd "$EXT_DIR" && zip -r "$OUT_ZIP" . -x "*.DS_Store")
+rm -rf "$EXT_DIR/_metadata"
+(cd "$EXT_DIR" && zip -r "$OUT_ZIP" . -x "*.DS_Store" -x "_metadata/*")
 
 if [[ -x "$CHROME" ]]; then
   ARGS=(--pack-extension="$EXT_DIR")

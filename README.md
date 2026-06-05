@@ -20,11 +20,13 @@
 ### Из исходников (рекомендуется)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/gate_ai.git
+git clone https://github.com/kio1432/gate_ai.git
 cd gate_ai
-npm install
-npm run build
+npm install   # автоматически запускает сборку (postinstall)
 ```
+
+> **Важно:** папка `extension/` должна содержать `background.js`, `content.js` и др.  
+> Если Chrome пишет «Не удалось загрузить content.js» — выполните `npm run build` и нажмите ↻ на карточке расширения.
 
 1. Откройте `chrome://extensions`
 2. Включите **Режим разработчика**

@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "vite build",
-    "pack": "bash scripts/pack-extension.sh"
+    "pack": "bash scripts/pack-extension.sh",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.268",
