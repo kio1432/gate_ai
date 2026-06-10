@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "BlockAI",
   "short_name": "blockai",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Проверяет VPN перед доступом к Claude — без утечки IP",
   "background": {
     "service_worker": "background.js",
@@ -24,6 +24,7 @@
   "permissions": [
     "storage",
     "tabs",
+    "webNavigation",
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess"
   ],
@@ -42,14 +43,11 @@
   "content_scripts": [
     {
       "matches": [
-        "*://claude.ai/*",
-        "*://*.claude.ai/*",
-        "*://claude.com/*",
-        "*://*.claude.com/*",
-        "*://anthropic.com/*",
-        "*://*.anthropic.com/*"
+        "<all_urls>"
       ],
-      "js": ["content.js"],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_start"
     }
   ],
@@ -64,8 +62,12 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["blocked.html"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "blocked.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }

@@ -30,38 +30,68 @@ function resolveVerdict(
     };
   }
 
+  // Детерминированный подсчёт, НЕ зависящий от порядка провайдеров.
+  // Иначе при расхождении (1 RU / 1 не-RU) перемешивание давало бы то
+  // allowed, то blocked для одного IP → петля редиректов.
   const votes = new Map<string, number>();
+  let blockedVotes = 0;
+  let allowedVotes = 0;
+
   for (const r of successful) {
     const code = r.countryCode!.toUpperCase();
     votes.set(code, (votes.get(code) ?? 0) + 1);
-  }
-
-  let topCode: string | null = null;
-  let topVotes = 0;
-  for (const [code, count] of votes) {
-    if (count > topVotes) {
-      topCode = code;
-      topVotes = count;
+    if (_matchBlocked(code, blockedCountries)) {
+      blockedVotes += 1;
+    } else {
+      allowedVotes += 1;
     }
   }
 
-  if (!topCode) {
-    return { verdict: 'unknown', countryCode: null, reason: 'No consensus on country' };
-  }
-
-  if (_matchBlocked(topCode, blockedCountries)) {
+  // Заблокированный регион — только при строгом большинстве "заблокировано"
+  if (blockedVotes > allowedVotes) {
+    const code = pickTopCode(votes, (c) => _matchBlocked(c, blockedCountries));
     return {
       verdict: 'blocked',
-      countryCode: topCode,
-      reason: `Region ${topCode} is not supported`,
+      countryCode: code,
+      reason: `Region ${code} is not supported`,
     };
   }
 
+  // Строгое большинство "разрешено"
+  if (allowedVotes > blockedVotes) {
+    const code = pickTopCode(votes, (c) => !_matchBlocked(c, blockedCountries));
+    return {
+      verdict: 'allowed',
+      countryCode: code,
+      reason: 'Region check passed',
+    };
+  }
+
+  // Ничья/нет данных — детерминированно unknown (без мигания)
   return {
-    verdict: 'allowed',
-    countryCode: topCode,
-    reason: 'Region check passed',
+    verdict: 'unknown',
+    countryCode: null,
+    reason: 'Ambiguous region (providers disagree)',
   };
+}
+
+/** Самая частая страна среди подходящих по фильтру; ничья — по алфавиту */
+function pickTopCode(
+  votes: Map<string, number>,
+  filter: (code: string) => boolean
+): string {
+  let best: string | null = null;
+  let bestCount = -1;
+  for (const [code, count] of [...votes.entries()].sort((a, b) =>
+    a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0
+  )) {
+    if (!filter(code)) continue;
+    if (count > bestCount) {
+      best = code;
+      bestCount = count;
+    }
+  }
+  return best ?? '??';
 }
 
 async function runCheck(config: Required<Pick<RegionGateConfig, 'providerTimeoutMs' | 'minSuccessfulProviders' | 'fetchFn'>> & {

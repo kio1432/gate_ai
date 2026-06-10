@@ -4,7 +4,7 @@
     "priority": 1,
     "action": { "type": "redirect", "redirect": { "extensionPath": "/blocked.html" } },
     "condition": {
-      "regexFilter": "^https?://([^/]+\\.)?claude\\.ai/",
+      "regexFilter": "^https?://(?:[^/]+\\.)*claude\\.ai/",
       "resourceTypes": ["main_frame"]
     }
   },
@@ -13,7 +13,7 @@
     "priority": 1,
     "action": { "type": "redirect", "redirect": { "extensionPath": "/blocked.html" } },
     "condition": {
-      "regexFilter": "^https?://([^/]+\\.)?claude\\.com/",
+      "regexFilter": "^https?://(?:[^/]+\\.)*claude\\.com/",
       "resourceTypes": ["main_frame"]
     }
   },
@@ -22,7 +22,7 @@
     "priority": 1,
     "action": { "type": "redirect", "redirect": { "extensionPath": "/blocked.html" } },
     "condition": {
-      "regexFilter": "^https?://([^/]+\\.)?anthropic\\.com/",
+      "regexFilter": "^https?://(?:[^/]+\\.)*anthropic\\.com/",
       "resourceTypes": ["main_frame"]
     }
   },
@@ -31,7 +31,7 @@
     "priority": 1,
     "action": { "type": "block" },
     "condition": {
-      "regexFilter": "^https?://([^/]+\\.)?claude\\.ai/",
+      "regexFilter": "^https?://(?:[^/]+\\.)*claude\\.ai/",
       "resourceTypes": ["xmlhttprequest", "script", "stylesheet", "image", "font", "websocket", "sub_frame", "ping", "media", "other"]
     }
   },
@@ -40,7 +40,7 @@
     "priority": 1,
     "action": { "type": "block" },
     "condition": {
-      "regexFilter": "^https?://([^/]+\\.)?claude\\.com/",
+      "regexFilter": "^https?://(?:[^/]+\\.)*claude\\.com/",
       "resourceTypes": ["xmlhttprequest", "script", "stylesheet", "image", "font", "websocket", "sub_frame", "ping", "media", "other"]
     }
   },
@@ -49,7 +49,7 @@
     "priority": 1,
     "action": { "type": "block" },
     "condition": {
-      "regexFilter": "^https?://([^/]+\\.)?anthropic\\.com/",
+      "regexFilter": "^https?://(?:[^/]+\\.)*anthropic\\.com/",
       "resourceTypes": ["xmlhttprequest", "script", "stylesheet", "image", "font", "websocket", "sub_frame", "ping", "media", "other"]
     }
   }
