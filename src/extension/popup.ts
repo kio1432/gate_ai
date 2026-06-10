@@ -233,7 +233,18 @@ async function load(): Promise<void> {
   if (select) select.value = String(settings.recheckIntervalSec);
 
   renderDomainList();
+
+  // Показываем последний кэшированный результат сразу — без мигания
   renderStatus(await getStatus(), settings.recheckIntervalSec);
+
+  // Параллельно запускаем свежую проверку: popup больше не показывает
+  // устаревший unknown из-за выгрузки service worker'а или стale-кэша.
+  try {
+    const fresh = await chrome.runtime.sendMessage({ type: 'RECHECK', force: false, fast: true });
+    if (fresh) renderStatus(fresh as PopupResult, settings.recheckIntervalSec);
+  } catch {
+    // SW не ответил — результат остаётся кэшированным, не критично
+  }
 }
 
 void load();

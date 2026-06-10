@@ -1,6 +1,6 @@
 {
   "name": "blockai",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Chrome extension: VPN gate before Claude — no IP leak to Anthropic",
   "type": "module",
   "license": "MIT",
